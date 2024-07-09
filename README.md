@@ -90,10 +90,4 @@ Ce projet est une application web locale permettant d'automatiser la création d
 
 Les contributions sont les bienvenues ! Si vous avez des suggestions, des idées d'amélioration ou des bugs à signaler, veuillez créer une issue ou soumettre une pull request.
 
-## License
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
 ---
-
-Ce README fournit une vue d'ensemble complète pour installer, utiliser et contribuer à votre projet. Assurez-vous d'adapter les sections spécifiques à vos besoins réels et à la configuration de votre projet.
