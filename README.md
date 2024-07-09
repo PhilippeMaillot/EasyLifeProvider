@@ -29,7 +29,7 @@ Ce projet est une application web locale permettant d'automatiser la création d
 
 1. **Cloner le Repository** :
     ```bash
-    git clone https://github.com/votre-utilisateur/nom-du-repo.git
+    git clone https://github.com/PhilippeMaillot/EasyLifeProvider.git
     cd nom-du-repo
     ```
 
