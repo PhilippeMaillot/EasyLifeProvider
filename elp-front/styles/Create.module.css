@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-left: 1px solid #ccc;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .checkbox {
+    margin-right: 10px;
+  }
+  
+  .button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  .tablesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .tableForm {
+    flex: 1 1 45%;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    min-width: 300px;
+  }
+  
+  .tablePreview {
+    margin-top: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  

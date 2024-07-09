@@ -1,0 +1,23 @@
+.headerBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.menu {
+  position: relative;
+}
+
+.link {
+  display: block;
+  margin: 10px 0;
+  color: #333;
+  text-decoration: none;
+}
