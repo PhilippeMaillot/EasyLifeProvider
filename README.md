@@ -42,6 +42,7 @@ Ce projet est une application web locale permettant d'automatiser la création d
     - Créez un fichier `.env` à la racine du projet et ajoutez-y les configurations nécessaires :
     ```
     DB_HOST=localhost
+    DB_PORT=3306
     DB_USER=root
     DB_PASSWORD=
     DB_NAME=nom_de_la_base_de_donnees
