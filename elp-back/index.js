@@ -3,6 +3,7 @@ const cors = require('cors');
 const db = require('./config/db');
 const app = express();
 const dbRouter = require('./routes/database');
+const processRouter = require('./routes/process')
 
 db.connect((err) => {
   if (err) {
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/db', dbRouter);
+app.use('/process', processRouter);
 
 app.listen(8080, () => {
   console.log('Serveur à l\'écoute');
