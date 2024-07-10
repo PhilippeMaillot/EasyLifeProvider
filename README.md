@@ -30,7 +30,7 @@ Ce projet est une application web locale permettant d'automatiser la création d
 1. **Cloner le Repository** :
     ```bash
     git clone https://github.com/PhilippeMaillot/EasyLifeProvider.git
-    cd nom-du-repo
+    cd EasyLifeProvider/elp-back
     ```
 
 2. **Installer les Dépendances** :
@@ -45,24 +45,32 @@ Ce projet est une application web locale permettant d'automatiser la création d
     DB_PORT=3306
     DB_USER=root
     DB_PASSWORD=
-    DB_NAME=nom_de_la_base_de_donnees
     ```
 
-4. **Lancer l'Application** :
+4. **Lancer l'Application (API)** :
     ```bash
+    nodemon
+    ```
+    ou
+     ```bash
     npm run dev
     ```
 
 ## Utilisation
 
 1. **Accéder à l'Interface Web** :
+    - cd EasyLifeProvider/elp-front
+    ```bash
+    npm run dev
+    ```
     - Ouvrez votre navigateur et accédez à `http://localhost:3000`.
 
-2. **Créer une Base de Données** :
-    - Utilisez l'interface pour créer une nouvelle base de données.
+2. **Récuperer une base de donnée** :
+    - Récuprez la base de donnée avec laquelle vous voulez travailler.
+    - Utilisez l'interface pour créer une nouvelle base de données (à venir).
 
 3. **Générer le Projet API** :
-    - Sélectionnez la base de données créée et cliquez sur "Générer le projet API".
+    - Sélectionnez la base de données créée/séléctionnée et cliquez sur "Générer le projet API".
     - L'application va automatiquement créer la structure du projet Node.js/Express et générer les fichiers nécessaires pour chaque table.
 
 ## Structure du Projet Généré

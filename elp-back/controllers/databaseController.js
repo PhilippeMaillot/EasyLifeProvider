@@ -25,7 +25,7 @@ class Database {
                     console.error('Erreur lors de la récupération de la base de données : ' + err.message);
                     res.status(500).send('Erreur lors de la récupération de la base de données');
                 } else {
-                    console.log('Récupération de la base de données réussie');
+                    console.log(`Récupération des tables de la base de données ${req.params.dbname} réussie`);
                     res.status(200).json(results);
                 }
             });
