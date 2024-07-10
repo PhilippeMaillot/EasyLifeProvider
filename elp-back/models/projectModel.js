@@ -4,7 +4,7 @@ const path = require("path");
 class ProjectModel {
   constructor(projectName) {
     this.projectName = projectName;
-    this.baseDir = path.join(__dirname, "../", this.projectName);
+    this.baseDir = path.join(__dirname, "../uploads/projects", this.projectName);
   }
 
   // Méthode pour créer la structure des dossiers
@@ -26,49 +26,47 @@ class ProjectModel {
 
   // Méthode pour créer le fichier .env
   createEnvFile(dbConfig) {
-    const envContent = `DB_HOST=${dbConfig.host}
-        DB_PORT=${dbConfig.port}
-        DB_USER=${dbConfig.user}
-        DB_PASSWORD=${dbConfig.password}
-        DB_NAME=${dbConfig.name}
+    const envContent = `
+    DB_HOST=${dbConfig.host}
+    DB_PORT=${dbConfig.port}
+    DB_USER=${dbConfig.user}
+    DB_PASSWORD=${dbConfig.password}
+    DB_NAME=${dbConfig.name}
     `;
     fs.writeFileSync(path.join(this.baseDir, ".env"), envContent);
   }
 
   // Méthode pour créer le fichier package.json
-  createPackageJson() {
+  createPackageJson(extraDependencies = {}) {
     const packageJsonContent = {
-        {
-            "name": this->projectName,
-            "version": "1.0.0",
-            "description": "",
-            "main": "index.js",
-            "scripts": {
-              "test": "echo \"Error: no test specified\" && exit 1"
-            },
-            "author": "",
-            "license": "ISC",
-            "dependencies": {
-              "express": "^4.19.2",
-              "cors": "^2.8.5",
-              "dotenv": "^16.4.5",
-              "jsonwebtoken": "^9.0.2",
-              "mysql2": "^3.10.1",
-              "nodemailer": "^6.9.13",
-              "nodemon": "^3.1.0",
-            }
-          }
+        name: this.projectName,
+        version: "1.0.0",
+        description: "",
+        main: "index.js",
+        scripts: {
+            test: 'echo "Error: no test specified" && exit 1',
+        },
+        author: "",
+        license: "ISC",
+        dependencies: {
+            express: "^4.19.2",
+            cors: "^2.8.5",
+            dotenv: "^16.4.5",
+            jsonwebtoken: "^9.0.2",
+            mysql2: "^3.10.1",
+            nodemailer: "^6.9.13",
+            nodemon: "^3.1.0",
+            ...extraDependencies // Ajouter les dépendances supplémentaires ici
+        },
     };
 
-    fs.writeFileSync(
-      path.join(this.baseDir, "package.json"),
-      JSON.stringify(packageJsonContent, null, 2)
-    );
-  }
+    const packageJsonPath = path.join(this.baseDir, 'package.json');
+    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
+}
 
   createConfigFile() {
     const configContent = `require('dotenv').config();
-    let mysql = require('mysql2');
+    const mysql = require('mysql2');
 
     const dbHost = process.env.DB_HOST;
     const dbUser = process.env.DB_USER;
@@ -76,14 +74,16 @@ class ProjectModel {
     const dbPort = process.env.DB_PORT;
 
     const connexion = mysql.createConnection({
-        host: dbHost,
-        user: dbUser,
-        password: dbPassword,
-        port: dbPort
-        });
+      host: dbHost,
+      user: dbUser,
+      password: dbPassword,
+      port: dbPort
+    });
 
     module.exports = connexion;
-    `
+    `;
+
+    fs.writeFileSync(path.join(this.baseDir, "config", "db.js"), configContent);
   }
 
   // Méthode pour créer le fichier server.js

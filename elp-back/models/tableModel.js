@@ -11,7 +11,7 @@ class TableModel {
         return `class ${this.name}Model {
 
             static findAll(callback) {
-            return db.query("SELECT * FROM ${name}", callback);
+            return db.query("SELECT * FROM ${this.name}", callback);
             }
         }
 
