@@ -42,7 +42,7 @@ DB_NAME=${dbConfig.name}
         name: this.projectName,
         version: "1.0.0",
         description: "",
-        main: "index.js",
+        main: "server.js",
         scripts: {
             test: 'echo "Error: no test specified" && exit 1',
         },
@@ -72,8 +72,10 @@ const dbHost = process.env.DB_HOST;
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 const dbPort = process.env.DB_PORT;
+const dbName = process.env.DB_NAME;
 
 const connexion = mysql.createConnection({
+  database: dbName,
   host: dbHost,
   user: dbUser,
   password: dbPassword,

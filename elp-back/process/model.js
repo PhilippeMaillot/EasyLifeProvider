@@ -1,5 +1,5 @@
 function getModelContent(name) {
-    return `const db = require('../db');
+    return `const db = require('../config/db');
 
 class ${name}Model {
 
