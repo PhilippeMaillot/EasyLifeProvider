@@ -73,6 +73,29 @@ Ce projet est une application web locale permettant d'automatiser la création d
     - Sélectionnez la base de données créée/séléctionnée et cliquez sur "Générer le projet API".
     - L'application va automatiquement créer la structure du projet Node.js/Express et générer les fichiers nécessaires pour chaque table.
 
+4. **Exemple pour postman** :
+     ```bash
+    {
+        "projectName": "leProjet",
+        "tableNames": ["users", "products"],
+        "dbConfig": {
+            "host": "localhost",
+            "port": 3306
+            "user": "root",
+            "password": "",
+            "dbname": "nombdd"
+        },
+        "extraDependencies": {
+            "lodash": "",
+            "axios": ""
+        }
+    }
+    ```
+    - Sur l'interface vous pourrez recupérer votre base de donnée.
+    - Vous aurez la posibilité de choisir le host, le port, le user et le password de la base.
+    - Enfin vous pourrez choisir d'ajouter de nouveaux packages dans une liste avec une barre de recherche.
+    - Le code va regarder les dépendances et va récupérer grâce à l'api https://registry.npmjs.org/ la dernière version pour l'ajouter au package.json 
+
 ## Structure du Projet Généré
 
 ```
