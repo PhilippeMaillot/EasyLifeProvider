@@ -11,19 +11,23 @@ class ProcessController {
     }
 
     static executeZip = async (req, res) => {
-        const { projectName, tableNames, dbConfig, extraDependencies } = req.body;
+        const { projectName, tableNames, dbConfig, extraDependencies, projectPath } = req.body;
+
+        console.log('Received request to create project and ZIP file with the following data:', req.body);
 
         if (!projectName || !Array.isArray(tableNames) || !extraDependencies) {
             console.log('Invalid input');
             return res.status(400).send('Invalid input');
         }
 
+        const finalProjectPath = projectPath || path.join(__dirname, "../uploads/projects");
+
         try {
             // Récupérer les informations des dépendances supplémentaires depuis l'API de npm
             const dependencies = await ProcessController.getDependencies(extraDependencies);
 
             // Créer le projet avec les dossiers nécessaires
-            const project = new ProjectModel(projectName);
+            const project = new ProjectModel(projectName, finalProjectPath);
             project.createDirectoryStructure();
             project.createEnvFile(dbConfig);
             project.createPackageJson(dependencies); // Passer les dépendances supplémentaires ici

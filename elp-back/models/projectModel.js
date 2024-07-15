@@ -2,9 +2,9 @@ const fs = require("fs");
 const path = require("path");
 
 class ProjectModel {
-  constructor(projectName) {
+  constructor(projectName, projectPath) {
     this.projectName = projectName;
-    this.baseDir = path.join(__dirname, "../uploads/projects", this.projectName);
+    this.baseDir = projectPath ? path.join(projectPath, this.projectName) : path.join(__dirname, "../uploads/projects", this.projectName);
   }
 
   // Méthode pour créer la structure des dossiers
@@ -26,12 +26,13 @@ class ProjectModel {
 
   // Méthode pour créer le fichier .env
   createEnvFile(dbConfig) {
+    console.log("Creating .env file with the following content:", dbConfig);
     const envContent = `
 DB_HOST=${dbConfig.host}
 DB_PORT=${dbConfig.port}
 DB_USER=${dbConfig.user}
 DB_PASSWORD=${dbConfig.password}
-DB_NAME=${dbConfig.name}
+DB_NAME=${dbConfig.dbname}
     `;
     fs.writeFileSync(path.join(this.baseDir, ".env"), envContent);
   }
