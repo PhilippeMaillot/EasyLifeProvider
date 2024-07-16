@@ -14,6 +14,7 @@ import {
   Paper,
 } from "@mui/material";
 import Navbar from "../components/Navbar";
+import Head from "next/head";
 
 const Home = () => {
   const [projectName, setProjectName] = useState("");
@@ -170,12 +171,20 @@ const Home = () => {
 
   return (
     <>
+      <Head>
+        <title>ELP - Création de projet</title>
+      </Head>
       <Navbar />
       <Container>
-        <br></br>
-        <Typography variant="h3" gutterBottom>
-          Créer un projet
-        </Typography>
+        <br />
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+          <Typography variant="h4" gutterBottom>
+            Créer un projet
+          </Typography>
+          <Button type="submit" variant="contained" color="primary" onClick={submitForm}>
+            Créer un projet
+          </Button>
+        </Box>
         <Box display="flex" justifyContent="space-between">
           <form onSubmit={submitForm} style={{ width: "48%" }}>
             <TextField
@@ -250,9 +259,6 @@ const Home = () => {
                 </MenuItem>
               ))}
             </Select>
-            <Button type="submit" variant="contained" color="primary">
-              Créer un projet
-            </Button>
           </form>
           <Box width="48%">
             <TextField
@@ -357,6 +363,7 @@ const Home = () => {
           )}
         </Box>
       </Container>
+      <br />
     </>
   );
 };

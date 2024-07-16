@@ -1,11 +1,12 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Tabs, Tab } from '@mui/material';
+import { AppBar, Toolbar, Typography, Tabs, Tab, useTheme } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const Navbar = () => {
     const router = useRouter();
     const [value, setValue] = React.useState(0);
+    const theme = useTheme();
 
     React.useEffect(() => {
         switch (router.pathname) {
@@ -18,11 +19,11 @@ const Navbar = () => {
             case '/page1':
                 setValue(2);
                 break;
-            case '/page2':
+            case '/aide':
                 setValue(3);
                 break;
             default:
-                setValue(0);
+                setValue(false);
                 break;
         }
     }, [router.pathname]);
@@ -32,16 +33,26 @@ const Navbar = () => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="sticky" sx={{ backgroundColor: theme.palette.primary.main }}>
             <Toolbar>
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    My Application
+                <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                    Easy Life Provider
                 </Typography>
-                <Tabs value={value} onChange={handleChange} aria-label="nav tabs">
-                    <Tab label="Create Project" component={Link} href="/" />
+                <Tabs 
+                    value={value} 
+                    onChange={handleChange} 
+                    aria-label="nav tabs" 
+                    textColor="inherit"
+                    sx={{
+                        '& .MuiTabs-indicator': {
+                            backgroundColor: 'white',
+                        },
+                    }}
+                >
+                    <Tab label="Création de projet" component={Link} href="/" />
                     <Tab label="Uploads" component={Link} href="/uploads" />
                     <Tab label="Page 1" component={Link} href="/page1" />
-                    <Tab label="Page 2" component={Link} href="/page2" />
+                    <Tab label="Aide" component={Link} href="/aide" />
                 </Tabs>
             </Toolbar>
         </AppBar>
