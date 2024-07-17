@@ -6,6 +6,7 @@ const dbRouter = require('./routes/database');
 const processRouter = require('./routes/process')
 const uploadsRouter = require('./routes/uploads');
 const directoryPathRoutes = require('./routes/directoryPath');
+const sqlRouter = require('./routes/sql');
 const path = require('path');
 
 db.connect((err) => {
@@ -26,6 +27,7 @@ app.use('/directoryPath', directoryPathRoutes);
 const uploadsDir = path.join(__dirname, '/uploads/zips');
 console.log(`Serving files from: ${uploadsDir}`);
 app.use('/uploads/zips', express.static(uploadsDir));
+app.use('/sql', sqlRouter);
 
 app.listen(8080, () => {
   console.log('Serveur à l\'écoute');
