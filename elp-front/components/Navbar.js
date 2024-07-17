@@ -16,7 +16,7 @@ const Navbar = () => {
             case '/uploads':
                 setValue(1);
                 break;
-            case '/page1':
+            case '/generateSqlPage':
                 setValue(2);
                 break;
             case '/aide':
@@ -51,7 +51,7 @@ const Navbar = () => {
                 >
                     <Tab label="Création de projet" component={Link} href="/" />
                     <Tab label="Uploads" component={Link} href="/uploads" />
-                    <Tab label="Page 1" component={Link} href="/page1" />
+                    <Tab label="Génération de requète SQL" component={Link} href="/generateSqlPage" />
                     <Tab label="Aide" component={Link} href="/aide" />
                 </Tabs>
             </Toolbar>

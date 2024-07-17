@@ -20,6 +20,16 @@ class Database {
             }
         });
     }
+
+    static getColumns(dbname, tablename, callback) {
+        db.query(`SHOW COLUMNS FROM ${dbname}.${tablename}`, (err, results) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, results);
+            }
+        });
+    }
 }
 
 module.exports = Database;

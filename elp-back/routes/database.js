@@ -6,4 +6,6 @@ router.get('/', dbController.getAll);
 
 router.get('/:dbname', dbController.getOne);
 
+router.get('/:dbname/:tablename', dbController.getColumns)
+
 module.exports = router;
