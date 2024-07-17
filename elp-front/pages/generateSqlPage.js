@@ -71,11 +71,16 @@ const GenerateSqlPage = () => {
     try {
       const response = await fetch(`http://localhost:8080/db/${dbSelect}/${table}`);
       const data = await response.json();
-      setColumnsCallback(data);
+      console.log(data);
+      // Extraire uniquement les champs "Field"
+      const columnNames = data.map(col => col.Field);
+      console.log(columnNames);
+      setColumnsCallback(columnNames);
     } catch (error) {
       console.error(`Erreur lors de la récupération des colonnes pour la table ${table}:`, error);
     }
   };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();

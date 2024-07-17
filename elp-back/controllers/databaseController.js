@@ -44,6 +44,7 @@ class Database {
                     res.status(500).send('Erreur lors de la récupération des colonnes');
                 } else {
                     console.log(`Récupération des colonnes de la table ${tablename} dans la base de données ${dbname} réussie`);
+                    console.log(results);
                     res.status(200).json(results);
                 }
             });

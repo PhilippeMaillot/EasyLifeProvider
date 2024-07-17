@@ -7,7 +7,7 @@ class SqlController {
     static generateSql = async (req, res) => {
         const prompt = req.body.prompt + "\nGénère uniquement une requête SQL préparée sans texte supplémentaire.";
         try {
-            const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
+            const response = await axios.post('https://api.openai.com/v1/chat/completions', {
                 prompt: prompt,
                 max_tokens: 150,
                 n: 1,
