@@ -1,5 +1,11 @@
 const axios = require('axios');
 require('dotenv').config();
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+    organization: process.env.ORG_ID,
+    project: process.env.PROJECT_ID,
+});
 
 const apiKey = process.env.OPENAI_API_KEY;
 
@@ -25,6 +31,17 @@ class SqlController {
             res.status(500).send('Erreur lors de la génération de la requête SQL');
         }
     };
+
+    static testingApi = async () => {
+        const stream = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: "Say this is a test" }],
+            stream: true,
+        });
+        for await (const chunk of stream) {
+            process.stdout.write(chunk.choices[0]?.delta?.content || "");
+        }
+    }
 }
 
 module.exports = SqlController;
