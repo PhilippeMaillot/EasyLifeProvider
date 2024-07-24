@@ -6,10 +6,10 @@ const sqlController = require('../controllers/sqlController');
 
 router.post('/save', sqlController.saveQuery);
 
-router.post('/cleanQueries/:dbname', sqlController.deleteQueries);
+router.post('/cleanQueries/:tableName', sqlController.deleteQueries);
 
 router.post('/delete/:queryId', sqlController.delete);
 
-router.get('/getQueries/:dbname', sqlController.getQueriesForDbname);
+router.get('/getQueries/:tableName', sqlController.getQueriesForTableName);
 
 module.exports = router;

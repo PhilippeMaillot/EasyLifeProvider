@@ -2,13 +2,13 @@ const db = require('../config/db');
 
 class SqlModel {
     static save(data, callback) {
-        const query = "INSERT INTO queries (dbname, fcname, query) values (?, ?, ?)";
+        const query = "INSERT INTO queries (dbname, tablename, fcname, query) values (?, ?, ?)";
         return db.query(query, [data.dbname, data.fcname, data.query], callback);
     }
 
-    static cleanUp(dbname, callback) {
-        const query = "DELETE * FROM queries WHERE dbname = ?";
-        return db.query(query, dbname, callback);
+    static cleanUp(tableName, callback) {
+        const query = "DELETE * FROM queries WHERE tablename = ?";
+        return db.query(query, tableName, callback);
     }
 
     static delete(queryId, callback) {
@@ -16,9 +16,9 @@ class SqlModel {
         return db.query(query, queryId, callback);
     }
 
-    static getQueriesForDbname(dbname, callback) {
-        const query = "SELECT * FROM queries WHERE dbname = ?";
-        return db.query(query, dbname, callback);
+    static getQueriesForTableName(tableName, callback) {
+        const query = "SELECT dbname, tablename, fcname, query FROM queries WHERE tablename = ?";
+        return db.query(query, tableName, callback);
     }
 }
 

@@ -62,8 +62,8 @@ class SqlController {
 
     static deleteQueries = async (req, res) => {
         try {
-            const dbname = req.params;
-            await sqlModel.cleanUp(dbname, (error, results) => {
+            const tableName = req.params;
+            await sqlModel.cleanUp(tableName, (error, results) => {
                 if (error) {
                     return res.status(500).json({ error: 'An error occurred' });
                 }
@@ -88,10 +88,10 @@ class SqlController {
         }
     }
 
-    static getQueriesForDbname = async (req, res) => {
+    static getQueriesForTableName = async (req, res) => {
         try {
-            const dbname = req.params;
-            await sqlModel.getQueriesForDbname(dbname, (error, results) => {
+            const tableName = req.params;
+            await sqlModel.getQueriesForTableName(tableName, (error, results) => {
                 if (error) {
                     return res.status(500).json({ error: 'An error occurred' });
                 }

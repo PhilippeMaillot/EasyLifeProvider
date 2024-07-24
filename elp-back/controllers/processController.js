@@ -37,7 +37,7 @@ class ProcessController {
             // Créer les fichiers pour chaque table dans le bon répertoire
             tableNames.forEach(name => {
                 const table = new TableModel(name);
-                table.createFiles(project.baseDir);
+                await table.createFiles(project.baseDir);
             });
 
             // Créer le fichier ZIP
