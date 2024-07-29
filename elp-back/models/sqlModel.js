@@ -2,8 +2,8 @@ const db = require('../config/db');
 
 class SqlModel {
     static save(data, callback) {
-        const query = "INSERT INTO queries (dbname, tablename, fcname, query) values (?, ?, ?)";
-        return db.query(query, [data.dbname, data.fcname, data.query], callback);
+        const query = "INSERT INTO queries (dbname, tablename, fcname, query) values (?, ?, ?, ?)";
+        return db.query(query, [data.dbname, data.tablename, data.fcname, data.query], callback);
     }
 
     static cleanUp(tableName, callback) {
