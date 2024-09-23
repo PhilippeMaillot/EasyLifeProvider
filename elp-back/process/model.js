@@ -1,5 +1,6 @@
-function getModelContent(name) {
-    return `const db = require('../config/db');
+function getModelContent(name, data) {
+    const baseMethods = `
+const db = require('../config/db');
 
 class ${name}Model {
 
@@ -25,6 +26,17 @@ class ${name}Model {
         const query = "DELETE FROM ${name} WHERE id = ?";
         return db.query(query, [id], callback);
     }
+`;
+
+    const dynamicMethods = data.map(item => {
+        return `    static ${item.fcname}(data, callback) {
+        const query = \`${item.query}\`;
+        return db.query(query, [data], callback);
+    }`;
+    }).join('\n');
+
+    return `${baseMethods}
+${dynamicMethods}
 }
 
 module.exports = ${name}Model;
