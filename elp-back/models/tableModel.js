@@ -13,8 +13,8 @@ class TableModel {
 
   async createFiles(baseDir) {
     try {
-      const response = await axios.post("http://localhost:8080/sql/getQueries/" + this.name);
-      const data = response.data;
+      /*const response = await axios.post("http://localhost:8080/sql/getQueries/" + this.name);
+      const data = response.data;*/
 
       const routePath = path.join(baseDir, "routes", `${this.name}.js`);
       const dRoutePath = path.join(baseDir, "routes", `dynamique.js`);
@@ -23,11 +23,11 @@ class TableModel {
       const modelPath = path.join(baseDir, "models", `${this.name}Model.js`);
       const dModelPath = path.join(baseDir, "models",`dynamiqueModel.js`);
 
-      fs.writeFileSync(routePath, getRouteContent(this.name, data));
+      fs.writeFileSync(routePath, getRouteContent(this.name, /*data*/));
       fs.writeFileSync(dRoutePath, getDynamiqueRouteContent());
-      fs.writeFileSync(controllerPath, getControllerContent(this.name, data));
+      fs.writeFileSync(controllerPath, getControllerContent(this.name, /*data*/));
       fs.writeFileSync(dControllerPath, getDynamiqueControllerContent());
-      fs.writeFileSync(modelPath, getModelContent(this.name, data));
+      fs.writeFileSync(modelPath, getModelContent(this.name, /*data*/));
       fs.writeFileSync(dModelPath, getDynamiqueModelContent());
     } catch (error) {
       console.error("Error fetching data or writing files:", error);

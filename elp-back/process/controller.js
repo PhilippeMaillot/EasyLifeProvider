@@ -1,4 +1,4 @@
-function getControllerContent(name, data) {
+function getControllerContent(name, /*data*/) {
     const baseMethods = `
 const ${name}Model = require('../models/${name}Model');
 
@@ -28,6 +28,7 @@ class ${name}Controller {
         } catch (error) {
             res.status(500).json({ error: 'An error occurred' });
         }
+    }
 
     static async create(req, res) {
         try {
@@ -73,7 +74,7 @@ class ${name}Controller {
     }
 `;
 
-    const dynamicMethods = data.map(item => {
+    /*const dynamicMethods = data.map(item => {
         return `    static async ${item.fcname}(req, res) {
         try {
             const data = req.body;
@@ -87,10 +88,9 @@ class ${name}Controller {
             res.status(500).json({ error: 'An error occurred' });
         }
     }`;
-    }).join('\n');
+    }).join('\n');*/
 
     return `${baseMethods}
-${dynamicMethods}
 }
 
 module.exports = ${name}Controller;

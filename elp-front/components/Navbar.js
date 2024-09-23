@@ -16,9 +16,6 @@ const Navbar = () => {
             case '/uploads':
                 setValue(1);
                 break;
-            case '/generateSqlPage':
-                setValue(2);
-                break;
             case '/aide':
                 setValue(3);
                 break;
@@ -51,7 +48,6 @@ const Navbar = () => {
                 >
                     <Tab label="Création de projet" component={Link} href="/" />
                     <Tab label="Uploads" component={Link} href="/uploads" />
-                    <Tab label="Génération de requète SQL" component={Link} href="/generateSqlPage" />
                     <Tab label="Aide" component={Link} href="/aide" />
                 </Tabs>
             </Toolbar>

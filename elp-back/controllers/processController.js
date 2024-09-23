@@ -35,7 +35,7 @@ class ProcessController {
             project.createServerFile(tableNames);
 
             // Créer les fichiers pour chaque table dans le bon répertoire
-            tableNames.forEach(name => {
+            tableNames.forEach(async name => {
                 const table = new TableModel(name);
                 await table.createFiles(project.baseDir);
             });
