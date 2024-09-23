@@ -15,6 +15,19 @@ class ${name}Controller {
         }
     }
 
+    static async getOne(req, res) {
+        try {
+            const { id } = req.params;
+            ${name}Model.findOne(id, (error, results) => {
+                if (error) {
+                    return res.status(500).json({ error: 'An error occurred' });
+                }
+                res.status(200).json(results);
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'An error occurred' });
+        }
+
     static async create(req, res) {
         try {
             const data = req.body;

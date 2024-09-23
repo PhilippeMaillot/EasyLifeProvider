@@ -1,11 +1,11 @@
 const axios = require('axios');
 require('dotenv').config();
-import OpenAI from "openai";
+//import OpenAI from "openai";
 
-const openai = new OpenAI({
+/*const openai = new OpenAI({
     organization: process.env.ORG_ID,
     project: process.env.PROJECT_ID,
-});
+});*/
 
 const apiKey = process.env.OPENAI_API_KEY;
 

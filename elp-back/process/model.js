@@ -7,6 +7,10 @@ class ${name}Model {
         return db.query("SELECT * FROM ${name}", [], callback);
     }
 
+    static findOne(id, callback) {
+        return db.query("SELECT * FROM ${name} WHERE id = ?", [id], callback);
+    }
+
     static create(data, callback) {
         const query = "INSERT INTO ${name} SET ?";
         return db.query(query, data, callback);
