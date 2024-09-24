@@ -1,4 +1,4 @@
-function getModelContent(name, /*data*/) {
+function getModelContent(name) {
     const baseMethods = `
 const db = require('../config/db');
 
@@ -27,14 +27,6 @@ class ${name}Model {
         return db.query(query, [id], callback);
     }
 `;
-
-    /*const dynamicMethods = data.map(item => {
-        return `    static ${item.fcname}(data, callback) {
-        const query = \`${item.query}\`;
-        return db.query(query, [data], callback);
-    }`;
-    }).join('\n');*/
-
     return `${baseMethods}
 }
 

@@ -1,4 +1,4 @@
-function getRouteContent(name, /*data*/) {
+function getRouteContent(name) {
     const baseRoutes = `
 const express = require('express');
 const router = express.Router();
@@ -10,11 +10,6 @@ router.post('/', ${name}Controller.create);
 router.put('/:id', ${name}Controller.update);
 router.delete('/:id', ${name}Controller.delete);
 `;
-
-    /*const dynamicRoutes = data.map(item => {
-        return `router.post('/${item.fcname}', ${name}Controller.${item.fcname});`;
-    }).join('\n');*/
-
     return `${baseRoutes}
 
 module.exports = router;
