@@ -51,6 +51,20 @@ const Uploads = () => {
                   variant="contained"
                   color="primary"
                   onClick={() => handleDownload(file)}
+                  sx={{
+                    fontSize: {
+                      xs: "0.8rem",
+                      sm: "1rem",
+                    },
+                    padding: {
+                      xs: "6px 12px",
+                      sm: "10px 20px",
+                    },
+                    backgroundColor: "#34495E",
+                    "&:hover": {
+                      backgroundColor: "#283747",
+                    },
+                  }}
                   startIcon={<DownloadIcon />}
                 >
                   téléchargement

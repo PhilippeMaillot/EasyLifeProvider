@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
   Container,
-  Typography,
   TextField,
+  Typography,
   Button,
   FormGroup,
   FormControlLabel,
@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Head from "next/head";
+import Popup from "../components/Popup"; // Importation du composant Popup
+import CustomTextField from "../components/CustomTextField"; // Importation du composant CustomTextField
 
 const Home = () => {
   const [projectName, setProjectName] = useState("");
@@ -32,8 +34,13 @@ const Home = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [savedPaths, setSavedPaths] = useState([]);
-  const searchInputRef = useRef(null); // Ref pour l'input de recherche
-  const [searchResultsPosition, setSearchResultsPosition] = useState({ top: 0, left: 0 });
+  const [popupOpen, setPopupOpen] = useState(false); // État pour gérer le popup
+  const [popupMessage, setPopupMessage] = useState(""); // Message du popup
+  const searchInputRef = useRef(null);
+  const [searchResultsPosition, setSearchResultsPosition] = useState({
+    top: 0,
+    left: 0,
+  });
 
   useEffect(() => {
     fetchDatabases();
@@ -84,9 +91,7 @@ const Home = () => {
         `https://registry.npmjs.org/-/v1/search?text=${query}`
       );
       const data = await response.json();
-      console.log("Résultats de recherche:", data);
       setSearchResults(data.objects);
-      // Calculer la position de l'input de recherche
       if (searchInputRef.current) {
         const rect = searchInputRef.current.getBoundingClientRect();
         setSearchResultsPosition({ top: rect.bottom, left: rect.left });
@@ -103,8 +108,8 @@ const Home = () => {
       }
       return prev;
     });
-    setSearchInput(""); // Réinitialiser la barre de recherche
-    setSearchResults([]); // Vider les résultats de recherche
+    setSearchInput("");
+    setSearchResults([]);
   };
 
   const removeDependency = (name) => {
@@ -124,8 +129,29 @@ const Home = () => {
     }
   };
 
+  // Fonction de validation des champs
+  const validateForm = () => {
+    if (
+      !projectName ||
+      !host ||
+      !port ||
+      !user ||
+      (!password && !noPassword) ||
+      !dbSelect
+    ) {
+      setPopupMessage("Veuillez remplir tous les champs obligatoires.");
+      setPopupOpen(true);
+      return false;
+    }
+    return true;
+  };
+
   const submitForm = async (event) => {
     event.preventDefault();
+
+    // Valider les champs avant l'envoi
+    if (!validateForm()) return;
+
     const extraDependencies = {};
     dependencies.forEach((name) => {
       extraDependencies[name] = "";
@@ -145,9 +171,20 @@ const Home = () => {
       projectPath,
     };
 
-    console.log("Body:", body);
-
-    const confirmed = confirm("Voulez-vous créer le projet?");
+    const confirmed = confirm(
+      `Voulez-vous créer le projet ${body.projectName} ?` +
+        `\n\nTables sélectionnées : ${body.tableNames.join(", ")}` +
+        `\n\nBase de données : ${body.dbConfig.dbname}` +
+        `\n\nDépendances supplémentaires : ${Object.keys(
+          body.extraDependencies
+        ).join(", ")}` +
+        `\n\nChemin du projet : ${body.projectPath}` +
+        `\n\nConfiguration de la base de données :` +
+        `\nHôte : ${body.dbConfig.host}` +
+        `\nPort : ${body.dbConfig.port}` +
+        `\nNom d'utilisateur : ${body.dbConfig.user}` +
+        `\nMot de passe : ${body.dbConfig.password}`
+    );
     if (!confirmed) return;
 
     try {
@@ -175,63 +212,97 @@ const Home = () => {
         <title>ELP - Création de projet</title>
       </Head>
       <Navbar />
-      <Container>
+      <Container maxWidth="md">
         <br />
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-          <Typography variant="h4" gutterBottom>
+        <Box
+          display="flex"
+          flexDirection={{
+            xs: "column",
+            sm: "row",
+          }}
+          justifyContent="space-between"
+          alignItems="center"
+          mb={3}
+          sx={{
+            padding: {
+              xs: "10px",
+              sm: "20px",
+            },
+          }}
+        >
+          <Typography
+            variant="h5"
+            sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
+          >
             Créer un projet
           </Typography>
-          <Button type="submit" variant="contained" color="primary" onClick={submitForm}>
+          <Button
+            type="submit"
+            variant="contained"
+            onClick={submitForm}
+            sx={{
+              fontSize: {
+                xs: "0.8rem",
+                sm: "1rem",
+              },
+              padding: {
+                xs: "6px 12px",
+                sm: "10px 20px",
+              },
+              backgroundColor: "#34495E",
+              "&:hover": {
+                backgroundColor: "#283747",
+              },
+            }}
+          >
             Créer un projet
           </Button>
         </Box>
         <Box display="flex" justifyContent="space-between">
-          <form onSubmit={submitForm} style={{ width: "48%" }}>
-            <TextField
-              fullWidth
+          {/* Première colonne */}
+          <form
+            onSubmit={submitForm}
+            style={{ width: "100%", maxWidth: "48%" }}
+          >
+            <CustomTextField
               label="Nom du projet"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
               required
             />
-            <TextField
-              fullWidth
+            <CustomTextField
               label="Chemin du projet"
               value={projectPath}
               onChange={(e) => setProjectPath(e.target.value)}
             />
-            <TextField
-              fullWidth
+            <CustomTextField
               label="Hôte"
               value={host}
               onChange={(e) => setHost(e.target.value)}
               required
             />
-            <TextField
-              fullWidth
-              type="number"
+            <CustomTextField
               label="Port"
               value={port}
               onChange={(e) => setPort(e.target.value)}
+              type="number"
               required
             />
-            <TextField
-              fullWidth
+            <CustomTextField
               label="Nom d'utilisateur"
               value={user}
               onChange={(e) => setUser(e.target.value)}
               required
             />
-            <TextField
-              fullWidth
-              type="password"
+            <CustomTextField
               label="Mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              type="password"
               required
               disabled={noPassword}
             />
-            <FormGroup>
+            <FormGroup sx={{ mb: 1 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -252,6 +323,7 @@ const Home = () => {
               value={dbSelect}
               onChange={(e) => setDbSelect(e.target.value)}
               required
+              sx={{ mb: 1 }}
             >
               {databases.map((db) => (
                 <MenuItem key={db.Database} value={db.Database}>
@@ -260,7 +332,9 @@ const Home = () => {
               ))}
             </Select>
           </form>
-          <Box width="48%">
+
+          {/* Deuxième colonne */}
+          <Box width="100%" maxWidth="48%">
             <TextField
               fullWidth
               label="Rechercher des packages NPM"
@@ -269,7 +343,8 @@ const Home = () => {
                 setSearchInput(e.target.value);
                 searchPackages(e.target.value);
               }}
-              inputRef={searchInputRef} // Référence à l'input de recherche
+              inputRef={searchInputRef}
+              sx={{ mb: 1, fontSize: "0.8rem" }}
             />
             <Box mt={2} mb={2} p={2} border={1} borderColor="grey.300">
               <Typography variant="h6">Dépendances sélectionnées:</Typography>
@@ -333,36 +408,42 @@ const Home = () => {
               </Box>
             </Box>
           </Box>
-          {searchResults.length > 0 && (
-            <Paper
-              style={{
-                position: "absolute",
-                top: `${searchResultsPosition.top}px`,
-                left: `${searchResultsPosition.left}px`,
-                width: "45%",
-                maxHeight: "400px",
-                overflowY: "auto",
-                zIndex: 1000,
-                padding: "10px",
-              }}
-            >
-              {searchResults.map((result) => (
-                <Box
-                  key={result.package.name}
-                  onClick={() => addDependency(result.package.name)}
-                  style={{
-                    borderBottom: "1px solid #ccc",
-                    padding: "8px",
-                    cursor: "pointer",
-                  }}
-                >
-                  {result.package.name} ({result.package.version})
-                </Box>
-              ))}
-            </Paper>
-          )}
         </Box>
+        {searchResults.length > 0 && (
+          <Paper
+            style={{
+              position: "absolute",
+              top: `${searchResultsPosition.top}px`,
+              left: `${searchResultsPosition.left}px`,
+              width: "45%",
+              maxHeight: "400px",
+              overflowY: "auto",
+              zIndex: 1000,
+              padding: "10px",
+            }}
+          >
+            {searchResults.map((result) => (
+              <Box
+                key={result.package.name}
+                onClick={() => addDependency(result.package.name)}
+                style={{
+                  borderBottom: "1px solid #ccc",
+                  padding: "8px",
+                  cursor: "pointer",
+                }}
+              >
+                {result.package.name} ({result.package.version})
+              </Box>
+            ))}
+          </Paper>
+        )}
       </Container>
+
+      <Popup
+        open={popupOpen}
+        handleClose={() => setPopupOpen(false)}
+        message={popupMessage}
+      />
       <br />
     </>
   );

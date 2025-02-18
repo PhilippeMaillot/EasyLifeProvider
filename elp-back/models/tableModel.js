@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const axios = require("axios");
 const { getModelContent } = require("../process/model");
 const { getControllerContent } = require("../process/controller");
 const { getRouteContent } = require("../process/route");

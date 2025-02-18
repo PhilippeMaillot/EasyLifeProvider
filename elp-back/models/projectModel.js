@@ -33,6 +33,7 @@ DB_PORT=${dbConfig.port}
 DB_USER=${dbConfig.user}
 DB_PASSWORD=${dbConfig.password}
 DB_NAME=${dbConfig.dbname}
+PORT=
     `;
     fs.writeFileSync(path.join(this.baseDir, ".env"), envContent);
   }
@@ -55,9 +56,8 @@ DB_NAME=${dbConfig.dbname}
             dotenv: "^16.4.5",
             jsonwebtoken: "^9.0.2",
             mysql2: "^3.10.1",
-            nodemailer: "^6.9.13",
             nodemon: "^3.1.0",
-            ...extraDependencies // Ajouter les dépendances supplémentaires ici
+            ...extraDependencies
         },
     };
 
@@ -102,7 +102,7 @@ module.exports = connexion;
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8081;
 
 app.use(bodyParser.json());
 

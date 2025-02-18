@@ -1,12 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Tabs, Tab, useTheme } from '@mui/material';
+import { AppBar, Toolbar, Typography, Tabs, Tab } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const Navbar = () => {
     const router = useRouter();
     const [value, setValue] = React.useState(0);
-    const theme = useTheme();
 
     React.useEffect(() => {
         switch (router.pathname) {
@@ -30,10 +29,17 @@ const Navbar = () => {
     };
 
     return (
-        <AppBar position="sticky" sx={{ backgroundColor: theme.palette.primary.main }}>
+        <AppBar position="sticky" sx={{ backgroundColor: "#283747" }}>
             <Toolbar>
-                <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                    Easy Life Provider
+                <Typography 
+                    variant="h4" 
+                    sx={{ 
+                        flexGrow: 1, 
+                        fontWeight: 'bold',
+                        fontFamily: 'Handjet, sans-serif', // Appliquer la police Handjet
+                    }}
+                >
+                    QuickAPI
                 </Typography>
                 <Tabs 
                     value={value} 
@@ -42,8 +48,9 @@ const Navbar = () => {
                     textColor="inherit"
                     sx={{
                         '& .MuiTabs-indicator': {
-                            backgroundColor: 'white',
+                            backgroundColor: '#5D6D7E',
                         },
+                        fontFamily: 'Handjet, sans-serif', // Appliquer la police Handjet aux onglets
                     }}
                 >
                     <Tab label="Création de projet" component={Link} href="/" />
